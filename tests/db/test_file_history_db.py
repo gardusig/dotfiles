@@ -2,13 +2,13 @@ import pytest
 from unittest.mock import patch, MagicMock
 
 # Patch external dependencies at the top of the module
-patch("sasori.db.file_history_db.HistoryDB", autospec=True).start()
+patch("crowler.db.file_history_db.HistoryDB", autospec=True).start()
 patch(
-    "sasori.db.file_history_db.create_session_file",
+    "crowler.db.file_history_db.create_session_file",
     return_value="mocked_session_file",
 ).start()
 
-from sasori.db.file_history_db import FileHistoryStore
+from crowler.db.file_history_db import FileHistoryStore
 
 
 @pytest.fixture(autouse=True)
@@ -22,7 +22,9 @@ def cleanup_patches():
 def mock_historydb(monkeypatch):
     # Patch HistoryDB instance methods for each test
     mock_db = MagicMock()
-    monkeypatch.setattr("sasori.db.file_history_db.HistoryDB", lambda *a, **kw: mock_db)
+    monkeypatch.setattr(
+        "crowler.db.file_history_db.HistoryDB", lambda *a, **kw: mock_db
+    )
     return mock_db
 
 

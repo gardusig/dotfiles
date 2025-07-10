@@ -15,14 +15,14 @@ def stub_aiconfig(monkeypatch):
             for k, v in kwargs.items():
                 setattr(self, k, v)
 
-    import sasori.ai.openai.openai_config as target_module
+    import crowler.ai.openai.openai_config as target_module
 
     monkeypatch.setattr(target_module, "AIConfig", DummyAIConfig)
     yield
 
 
 def test_openai_config_defaults(stub_aiconfig):
-    from sasori.ai.openai.openai_config import OpenAIConfig
+    from crowler.ai.openai.openai_config import OpenAIConfig
 
     config = OpenAIConfig()
     # Should inherit from DummyAIConfig
@@ -48,7 +48,7 @@ def test_openai_config_defaults(stub_aiconfig):
 def test_openai_config_custom_values(
     stub_aiconfig, model, temperature, max_tokens, top_p
 ):
-    from sasori.ai.openai.openai_config import OpenAIConfig
+    from crowler.ai.openai.openai_config import OpenAIConfig
 
     config = OpenAIConfig(
         model=model,

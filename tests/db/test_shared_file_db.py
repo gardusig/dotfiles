@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 
-import sasori.db.shared_file_db as shared_file_db
+import crowler.db.shared_file_db as shared_file_db
 
 
 @pytest.fixture(autouse=True)

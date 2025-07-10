@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 from types import SimpleNamespace
 
-import sasori.util.string_util as string_util
+import crowler.util.string_util as string_util
 
 
 @pytest.fixture(autouse=True)

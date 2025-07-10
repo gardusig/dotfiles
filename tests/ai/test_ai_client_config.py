@@ -1,6 +1,6 @@
 import pytest
 
-from sasori.ai.ai_client_config import AIConfig
+from crowler.ai.ai_client_config import AIConfig
 
 
 class DummyAIConfig(AIConfig):

@@ -4,8 +4,8 @@ from unittest.mock import patch, MagicMock
 import builtins
 
 # Patch external dependencies at the top-level of the module under test
-patch_target_create_session_file = "sasori.db.prompt_db.create_session_file"
-patch_target_HistoryDB = "sasori.db.prompt_db.HistoryDB"
+patch_target_create_session_file = "crowler.db.prompt_db.create_session_file"
+patch_target_HistoryDB = "crowler.db.prompt_db.HistoryDB"
 
 
 # Import the module under test after patching dependencies
@@ -13,18 +13,18 @@ patch_target_HistoryDB = "sasori.db.prompt_db.HistoryDB"
 def patch_external_deps(monkeypatch):
     # Patch create_session_file to return a dummy file path
     monkeypatch.setattr(
-        "sasori.db.prompt_db.create_session_file", lambda name: f"/tmp/{name}.db"
+        "crowler.db.prompt_db.create_session_file", lambda name: f"/tmp/{name}.db"
     )
     # Patch HistoryDB with a MagicMock
     mock_history_db_cls = MagicMock()
-    monkeypatch.setattr("sasori.db.prompt_db.HistoryDB", mock_history_db_cls)
+    monkeypatch.setattr("crowler.db.prompt_db.HistoryDB", mock_history_db_cls)
     yield
 
 
 @pytest.fixture
 def prompt_store(monkeypatch):
     # Patch create_session_file and HistoryDB for PromptHistoryStore
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     # Create a fresh PromptHistoryStore for each test
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
@@ -34,7 +34,7 @@ def prompt_store(monkeypatch):
 @pytest.fixture
 def mock_db(monkeypatch):
     # Patch HistoryDB instance for fine-grained control
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     mock_db = MagicMock()
     # Patch the _db attribute of PromptHistoryStore
@@ -52,7 +52,7 @@ def mock_db(monkeypatch):
     ],
 )
 def test_snap_returns_clean_copy(monkeypatch, input_lines, expected):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
     store._db = MagicMock()
@@ -63,7 +63,7 @@ def test_snap_returns_clean_copy(monkeypatch, input_lines, expected):
 
 
 def test_clear_calls_db_and_prints(monkeypatch, capsys):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
     store._db = MagicMock()
@@ -85,7 +85,7 @@ def test_clear_calls_db_and_prints(monkeypatch, capsys):
 def test_append_prompt(
     monkeypatch, capsys, prompt, existing, expected_push, expected_msg
 ):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
     store._db = MagicMock()
@@ -111,7 +111,7 @@ def test_append_prompt(
 def test_remove_prompt(
     monkeypatch, capsys, prompt, existing, expected_push, expected_msg
 ):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
     store._db = MagicMock()
@@ -134,7 +134,7 @@ def test_remove_prompt(
     ],
 )
 def test_undo_prompts(monkeypatch, capsys, undo_result, expected_msg):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
     store._db = MagicMock()
@@ -145,7 +145,7 @@ def test_undo_prompts(monkeypatch, capsys, undo_result, expected_msg):
 
 
 def test_summary_delegates(monkeypatch):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
     store._db = MagicMock()
@@ -154,7 +154,7 @@ def test_summary_delegates(monkeypatch):
 
 
 def test_latest_delegates(monkeypatch):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     store = prompt_db.PromptHistoryStore("test_history", "Test Prompts")
     store._db = MagicMock()
@@ -163,7 +163,7 @@ def test_latest_delegates(monkeypatch):
 
 
 def test_public_api_functions(monkeypatch):
-    from sasori.db import prompt_db
+    from crowler.db import prompt_db
 
     # Patch _prompt_store methods
     monkeypatch.setattr(prompt_db._prompt_store, "clear", MagicMock())

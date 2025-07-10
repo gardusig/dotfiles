@@ -3,8 +3,8 @@ requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sasori"
-version = "0.1.1"
+name = "crowler"
+version = "0.0.1"
 description = "CLI toolkit for managing prompts, files, and AI-powered workflows"
 authors = [{ name = "Gustavo Gardusi", email = "gustavo.gardusi@gmail.com" }]
 readme = { file = "README.md", content-type = "text/markdown" }
@@ -17,6 +17,8 @@ dependencies = [
   "typer[all]",
   "boto3",
   "pyperclip",
+  "requests",
+  "beautifulsoup4",
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -29,13 +31,13 @@ classifiers = [
 dev = ["pytest", "mypy", "black", "flake8"]
 
 [project.urls]
-Homepage = "https://github.com/gardusig/sasoriCLI"
+Homepage = "https://github.com/gardusig/crowler"
 
 [tool.setuptools]
-package-dir = { "" = "sasori" }
+package-dir = { "" = "crowler" }
 
 [tool.setuptools.packages.find]
-where = ["sasori"]
+where = ["crowler"]
 
 [tool.black]
 line-length = 88
@@ -53,4 +55,8 @@ exclude = '''
 '''
 
 [project.scripts]
-sasori = "sasori.main:app"
+crowler = "crowler.main:app"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

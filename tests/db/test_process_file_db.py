@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 
-import sasori.db.process_file_db as process_file_db
+import crowler.db.process_file_db as process_file_db
 
 
 @pytest.fixture(autouse=True)

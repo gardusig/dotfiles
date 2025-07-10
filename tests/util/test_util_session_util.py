@@ -4,7 +4,7 @@ from pathlib import Path
 
 import builtins
 
-import sasori.util.session_util as session_util
+import crowler.util.session_util as session_util
 
 
 @pytest.fixture(autouse=True)

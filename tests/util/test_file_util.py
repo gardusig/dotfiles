@@ -3,7 +3,7 @@ from pathlib import Path
 from collections import OrderedDict
 from typing import Any
 
-import sasori.util.file_util as file_util
+import crowler.util.file_util as file_util
 
 
 @pytest.mark.parametrize(
@@ -187,8 +187,8 @@ def test_find_repo_root_fallback(monkeypatch):
 
 def test_source_to_test_path_success(tmp_path):
     repo_root = tmp_path
-    src = tmp_path / "sasori" / "cli" / "app.py"
-    (tmp_path / "sasori" / "cli").mkdir(parents=True)
+    src = tmp_path / "crowler" / "cli" / "app.py"
+    (tmp_path / "crowler" / "cli").mkdir(parents=True)
     src.write_text("x")
     out = file_util.source_to_test_path(src, repo_root)
     assert out.parts[-2] == "cli"

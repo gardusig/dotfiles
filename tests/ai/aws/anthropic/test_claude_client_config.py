@@ -1,6 +1,6 @@
 import pytest
 
-import sasori.ai.aws.anthropic.claude_client_config as claude_client_config
+import crowler.ai.aws.anthropic.claude_client_config as claude_client_config
 
 
 class DummyBedrockClientConfig:
@@ -22,7 +22,9 @@ def test_anthropic_version_constant():
 
 def test_claude_client_config_inherits(monkeypatch):
     # Confirm inheritance and field assignment
-    config = claude_client_config.ClaudeClientConfig(model="test-model")
+    config = claude_client_config.ClaudeClientConfig(
+        model="test-model", temperature=0.25
+    )
     assert isinstance(config, claude_client_config.ClaudeClientConfig)
     assert config.model == "test-model"
     assert config.anthropic_version == claude_client_config.ANTHROPIC_VERSION

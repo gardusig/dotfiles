@@ -1,7 +1,7 @@
 import pyperclip
 from typer.testing import CliRunner
 from unittest.mock import patch
-from sasori.cli.app import app
+from crowler.cli.app import app
 
 runner = CliRunner()
 
@@ -9,14 +9,14 @@ runner = CliRunner()
 def test_preview_command():
     with (
         patch(
-            "sasori.cli.app.summary_prompts", return_value="Prompt Summary"
+            "crowler.cli.app.summary_prompts", return_value="Prompt Summary"
         ) as mock_summary_prompts,
         patch(
-            "sasori.cli.app.summary_shared_files",
+            "crowler.cli.app.summary_shared_files",
             return_value="Shared Files Summary",
         ) as mock_summary_shared_files,
         patch(
-            "sasori.cli.app.summary_processing_files",
+            "crowler.cli.app.summary_processing_files",
             return_value="Processing Files Summary",
         ) as mock_summary_processing_files,
     ):
@@ -34,7 +34,7 @@ def test_preview_command():
 
 
 def test_add_prompt_command():
-    with patch("sasori.cli.app.append_prompt") as mock_append_prompt:
+    with patch("crowler.cli.app.append_prompt") as mock_append_prompt:
         result = runner.invoke(app, ["add", "Test prompt"])
 
         assert result.exit_code == 0
@@ -50,9 +50,9 @@ def test_add_prompt_command_empty():
 
 def test_clear_all_command():
     with (
-        patch("sasori.cli.app.clear_prompts") as mock_clear_prompts,
-        patch("sasori.cli.app.clear_shared_files") as mock_clear_shared_files,
-        patch("sasori.cli.app.clear_processing_files") as mock_clear_processing_files,
+        patch("crowler.cli.app.clear_prompts") as mock_clear_prompts,
+        patch("crowler.cli.app.clear_shared_files") as mock_clear_shared_files,
+        patch("crowler.cli.app.clear_processing_files") as mock_clear_processing_files,
     ):
 
         result = runner.invoke(app, ["clear"])
@@ -66,9 +66,9 @@ def test_clear_all_command():
 def test_add_prompt_from_clipboard():
     with (
         patch(
-            "sasori.cli.app._clipboard_get", return_value="Clipboard prompt"
+            "crowler.cli.app._clipboard_get", return_value="Clipboard prompt"
         ) as mock_clipboard_get,
-        patch("sasori.cli.app.append_prompt") as mock_append_prompt,
+        patch("crowler.cli.app.append_prompt") as mock_append_prompt,
     ):
 
         result = runner.invoke(app, ["clipboard"])

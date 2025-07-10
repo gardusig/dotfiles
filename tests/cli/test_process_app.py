@@ -1,6 +1,6 @@
 import pytest
 from typer.testing import CliRunner
-from sasori.cli.process_app import process_app
+from crowler.cli.process_app import process_app
 from unittest.mock import patch, call
 
 runner = CliRunner()
@@ -9,12 +9,12 @@ runner = CliRunner()
 @pytest.fixture(autouse=True)
 def mock_file_operations():
     with (
-        patch("sasori.cli.process_app.get_all_files") as mock_get_all_files,
-        patch("sasori.cli.process_app.append_processing_file") as mock_append,
-        patch("sasori.cli.process_app.remove_processing_file") as mock_remove,
-        patch("sasori.cli.process_app.clear_processing_files") as mock_clear,
-        patch("sasori.cli.process_app.summary_processing_files") as mock_summary,
-        patch("sasori.cli.process_app.undo_processing_files") as mock_undo,
+        patch("crowler.cli.process_app.get_all_files") as mock_get_all_files,
+        patch("crowler.cli.process_app.append_processing_file") as mock_append,
+        patch("crowler.cli.process_app.remove_processing_file") as mock_remove,
+        patch("crowler.cli.process_app.clear_processing_files") as mock_clear,
+        patch("crowler.cli.process_app.summary_processing_files") as mock_summary,
+        patch("crowler.cli.process_app.undo_processing_files") as mock_undo,
     ):
         mock_get_all_files.return_value = ["file1.txt", "file2.txt"]
         mock_summary.return_value = "Current files: file1.txt, file2.txt"
